@@ -5,7 +5,7 @@ import 'package:get/get.dart';
 import 'package:injectable/injectable.dart';
 import 'package:rive/rive.dart';
 import 'package:video_player/video_player.dart';
-import 'package:wakelock/wakelock.dart';
+import 'package:wakelock_plus/wakelock_plus.dart';
 
 import '../../data/local/preferences/settings_helper.dart';
 import '../../ui/core/dialogs/core/dialog_manager.dart';
@@ -187,14 +187,14 @@ class PlayerControlsController extends GetxController with GetSingleTickerProvid
       playPauseIconAnimController?.forward();
     }
 
-    final bool isWakelockEnabled = await Wakelock.enabled;
+    final bool isWakelockEnabled = await WakelockPlus.enabled;
     if (latestValue.value?.isPlaying == true) {
       if (!isWakelockEnabled) {
-        Wakelock.enable();
+        WakelockPlus.enable();
       }
     } else {
       if (isWakelockEnabled) {
-        Wakelock.disable();
+        WakelockPlus.disable();
       }
     }
 

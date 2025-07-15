@@ -17,7 +17,7 @@ class DeviceUUIDProvider {
       return iosDeviceInfo.identifierForVendor;
     } else {
       final AndroidDeviceInfo androidDeviceInfo = await _deviceInfo.androidInfo;
-      return androidDeviceInfo.androidId;
+      return androidDeviceInfo.id;
     }
   }
 }

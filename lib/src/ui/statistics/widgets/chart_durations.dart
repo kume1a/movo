@@ -55,28 +55,35 @@ class ChartDurations extends GetView<StatisticsController> {
             lineTouchData: LineTouchData(enabled: false),
             gridData: FlGridData(show: false),
             titlesData: FlTitlesData(
-              bottomTitles: SideTitles(
-                showTitles: true,
-                getTextStyles: (_, __) => const TextStyle(color: Colors.white54, fontSize: 12),
-                getTitles: (double value) =>
+              bottomTitles: AxisTitles(
+                sideTitles: SideTitles(
+                  showTitles: true,
+                  getTitlesWidget: (double value, TitleMeta meta) => Text(
                     dateFormat.format(DateTime.fromMillisecondsSinceEpoch(value.toInt())),
-                margin: 8,
-                interval: bottomTitlesInterval,
+                    style: const TextStyle(color: Colors.white54, fontSize: 12),
+                  ),
+                  reservedSize: 30,
+                  interval: bottomTitlesInterval,
+                ),
               ),
-              leftTitles: SideTitles(
-                showTitles: true,
-                getTextStyles: (_, __) => const TextStyle(color: Colors.white54, fontSize: 12),
-                getTitles: (double value) {
-                  final Duration duration = Duration(milliseconds: value.floor());
-                  final String minutesFraction = (duration.inMinutes / 60).toStringAsFixed(1).split('.').last;
-                  return ParamTranslations.commonHours('${duration.inHours}.$minutesFraction');
-                },
-                reservedSize: 42,
-                margin: 8,
-                interval: leftTitlesInterval,
+              leftTitles: AxisTitles(
+                sideTitles: SideTitles(
+                  showTitles: true,
+                  getTitlesWidget: (double value, TitleMeta meta) {
+                    final Duration duration = Duration(milliseconds: value.floor());
+                    final String minutesFraction =
+                        (duration.inMinutes / 60).toStringAsFixed(1).split('.').last;
+                    return Text(
+                      ParamTranslations.commonHours('${duration.inHours}.$minutesFraction'),
+                      style: const TextStyle(color: Colors.white54, fontSize: 12),
+                    );
+                  },
+                  reservedSize: 42,
+                  interval: leftTitlesInterval,
+                ),
               ),
-              rightTitles: SideTitles(showTitles: false),
-              topTitles: SideTitles(showTitles: false),
+              rightTitles: const AxisTitles(),
+              topTitles: const AxisTitles(),
             ),
             borderData: FlBorderData(
               border: const Border(
@@ -91,23 +98,26 @@ class ChartDurations extends GetView<StatisticsController> {
             lineBarsData: <LineChartBarData>[
               LineChartBarData(
                 spots: values,
-                colors: <Color>[colorAccent, colorPrimary],
-                colorStops: const <double>[.6, .9],
-                gradientFrom: const Offset(.1, 0),
-                gradientTo: const Offset(.1, 1),
+                gradient: LinearGradient(
+                  colors: <Color>[colorAccent, colorPrimary],
+                  stops: const <double>[.6, .9],
+                  begin: const Alignment(.1, 0),
+                  end: const Alignment(.1, 1),
+                ),
                 isStrokeCapRound: true,
-                dotData: FlDotData(show: false),
+                dotData: const FlDotData(show: false),
                 belowBarData: BarAreaData(
                   show: true,
-                  colors: <Color>[colorAccent, colorPrimary],
-                  gradientColorStops: const <double>[0, 1],
-                  gradientFrom: const Offset(.1, 0),
-                  gradientTo: const Offset(.1, 1),
+                  gradient: LinearGradient(
+                    colors: <Color>[colorAccent, colorPrimary],
+                    stops: const <double>[0, 1],
+                    begin: const Alignment(.1, 0),
+                    end: const Alignment(.1, 1),
+                  ),
                 ),
               )
             ],
           ),
-          swapAnimationDuration: Duration.zero,
         ),
       );
     });

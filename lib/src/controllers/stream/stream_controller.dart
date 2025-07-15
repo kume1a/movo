@@ -4,7 +4,7 @@ import 'package:collection/collection.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:video_player/video_player.dart';
-import 'package:wakelock/wakelock.dart';
+import 'package:wakelock_plus/wakelock_plus.dart';
 
 import '../../core/enums/language.dart';
 import '../../core/enums/quality.dart';
@@ -156,7 +156,7 @@ class StreamController extends GetxController {
 
   @override
   Future<void> onClose() async {
-    Wakelock.disable();
+    WakelockPlus.disable();
 
     await _videoPlayerController?.dispose();
     chewieController.value?.dispose();
@@ -195,9 +195,9 @@ class StreamController extends GetxController {
           : null;
 
       final List<EpisodeFile>? selectedLanguageEpisodes = episode?.episodes[language];
-      final EpisodeFile? episodeFile = selectedLanguageEpisodes
-              ?.firstWhereOrNull((EpisodeFile e) => e.quality == quality.value) ??
-          episode?.episodes[language]?.first;
+      final EpisodeFile? episodeFile =
+          selectedLanguageEpisodes?.firstWhereOrNull((EpisodeFile e) => e.quality == quality.value) ??
+              episode?.episodes[language]?.first;
 
       if (episodeFile != null) {
         videoSrc = episodeFile.src;
@@ -332,12 +332,11 @@ class StreamController extends GetxController {
       if (!const DeepCollectionEquality().equals(languages, episodeLanguages)) {
         languages = episodeLanguages;
         final Language preferredLanguage = await _preferencesHelper.readPreferredLanguage();
-        language.value = languages.firstWhere((Language e) => e == preferredLanguage,
-            orElse: () => languages.first);
+        language.value =
+            languages.firstWhere((Language e) => e == preferredLanguage, orElse: () => languages.first);
 
         final List<Quality> episodeQualities =
-            episode?.episodes[language.value]?.map((EpisodeFile e) => e.quality).toList() ??
-                <Quality>[];
+            episode?.episodes[language.value]?.map((EpisodeFile e) => e.quality).toList() ?? <Quality>[];
 
         if (!const DeepCollectionEquality().equals(qualities, episodeQualities)) {
           qualities = episodeQualities;

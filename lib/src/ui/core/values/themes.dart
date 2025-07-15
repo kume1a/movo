@@ -10,14 +10,14 @@ class AppThemes {
     splashColor: colorAccent,
     textButtonTheme: TextButtonThemeData(
       style: ButtonStyle(
-        foregroundColor: MaterialStateProperty.resolveWith<Color>(
-          (Set<MaterialState> states) =>
-              states.contains(MaterialState.disabled) ? colorTextSecondary : colorTextPrimary,
+        foregroundColor: WidgetStateProperty.resolveWith<Color>(
+          (Set<WidgetState> states) =>
+              states.contains(WidgetState.disabled) ? colorTextSecondary : colorTextPrimary,
         ),
-        overlayColor: MaterialStateProperty.all<Color>(colorAccent.withOpacity(.5)),
+        overlayColor: WidgetStateProperty.all<Color>(colorAccent.withOpacity(.5)),
       ),
     ),
-    dialogTheme: DialogTheme(
+    dialogTheme: DialogThemeData(
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(18),
       ),
@@ -39,42 +39,42 @@ class AppThemes {
       trackShape: LessMarginTrackShape(),
     ),
     checkboxTheme: CheckboxThemeData(
-      fillColor: MaterialStateProperty.resolveWith<Color?>((Set<MaterialState> states) {
-        if (states.contains(MaterialState.disabled)) {
+      fillColor: WidgetStateProperty.resolveWith<Color?>((Set<WidgetState> states) {
+        if (states.contains(WidgetState.disabled)) {
           return null;
         }
-        if (states.contains(MaterialState.selected)) {
+        if (states.contains(WidgetState.selected)) {
           return colorAccent;
         }
         return null;
       }),
     ),
     radioTheme: RadioThemeData(
-      fillColor: MaterialStateProperty.resolveWith<Color?>((Set<MaterialState> states) {
-        if (states.contains(MaterialState.disabled)) {
+      fillColor: WidgetStateProperty.resolveWith<Color?>((Set<WidgetState> states) {
+        if (states.contains(WidgetState.disabled)) {
           return null;
         }
-        if (states.contains(MaterialState.selected)) {
+        if (states.contains(WidgetState.selected)) {
           return colorAccent;
         }
         return null;
       }),
     ),
     switchTheme: SwitchThemeData(
-      thumbColor: MaterialStateProperty.resolveWith<Color?>((Set<MaterialState> states) {
-        if (states.contains(MaterialState.disabled)) {
+      thumbColor: WidgetStateProperty.resolveWith<Color?>((Set<WidgetState> states) {
+        if (states.contains(WidgetState.disabled)) {
           return null;
         }
-        if (states.contains(MaterialState.selected)) {
+        if (states.contains(WidgetState.selected)) {
           return colorAccent;
         }
         return null;
       }),
-      trackColor: MaterialStateProperty.resolveWith<Color?>((Set<MaterialState> states) {
-        if (states.contains(MaterialState.disabled)) {
+      trackColor: WidgetStateProperty.resolveWith<Color?>((Set<WidgetState> states) {
+        if (states.contains(WidgetState.disabled)) {
           return null;
         }
-        if (states.contains(MaterialState.selected)) {
+        if (states.contains(WidgetState.selected)) {
           return colorAccent;
         }
         return null;
@@ -85,7 +85,7 @@ class AppThemes {
           primary: colorAccent,
           secondary: colorAccent,
         )
-        .copyWith(background: colorPrimary),
+        .copyWith(surface: colorPrimary),
   );
 
   static final ThemeData darkLocaleKa = dark.copyWith(
