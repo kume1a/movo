@@ -14,3 +14,6 @@ key.properties
 **/*.jks
 
 build
+.kotlin
+
+app/google-services.json

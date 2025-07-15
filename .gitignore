@@ -47,3 +47,5 @@ app.*.map.json
 lib/**/*.g.dart
 lib/**/*.config.dart
 lib/**/*.freezed.dart
+
+lib/firebase_options.dart
